@@ -148,7 +148,9 @@ const restart = () => {
         item.disabled = false;
     });
     turn = 0;
-    player.disabled = false;
+    if (computer) {
+        player.disabled = false;
+    }
     player.checked = false;
     setting.disabled = false;
 };
