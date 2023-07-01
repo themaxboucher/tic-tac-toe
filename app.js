@@ -39,6 +39,9 @@ const endGame = (win, winner) => {
     } else {
         document.getElementById('winner').innerHTML = 'Draw';
     }
+    grid.forEach(item => {
+        item.disabled = true;
+    });
 };
 
 const checkWin = () => {
