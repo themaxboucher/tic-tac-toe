@@ -86,6 +86,7 @@ const computerMove = () => {
     const randomIndex = Math.floor(Math.random() * keys.length);
     const randomKey = keys[randomIndex];
     const square = document.getElementById(randomKey);
+    square.disabled = true;
     if (turn % 2 === 0) {
         gridState[randomKey] = 'O';
         text.innerHTML = 'X Turn';
