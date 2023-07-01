@@ -148,6 +148,7 @@ const restart = () => {
         player.disabled = false;
     }
     player.checked = false;
+    text.innerHTML = 'X Turn';
     setting.disabled = false;
 };
 
