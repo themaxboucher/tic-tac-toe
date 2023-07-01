@@ -106,6 +106,7 @@ const move = (square, num) => {
     turn++
     player.disabled = true;
     setting.disabled = true;
+    square.disabled = true;
     if (turn % 2 === 0) {
         gridState[num] = 'O';
         square.innerHTML = 'O';
