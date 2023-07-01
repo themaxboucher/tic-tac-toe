@@ -12,6 +12,7 @@ const gridState = {
 };
 const text = document.getElementById('turn');
 const player = document.getElementById('player');
+const winnerDisplay = document.getElementById('winner');
 
 // Toggle from 'VS Computer' to 'VS Friend'
 let computer = true;
@@ -34,9 +35,9 @@ let turn = 0;
 const endGame = (win, winner) => {
     text.innerHTML = 'Game Over';
     if (win) {
-        document.getElementById('winner').innerHTML = `${gridState[winner]} wins!`;
+        winnerDisplay.innerHTML = `${gridState[winner]} wins!`;
     } else {
-        document.getElementById('winner').innerHTML = 'Draw';
+        winnerDisplay.innerHTML = 'Draw';
     }
     grid.forEach(item => {
         item.disabled = true;
@@ -150,6 +151,7 @@ const restart = () => {
     player.checked = false;
     text.innerHTML = 'X Turn';
     setting.disabled = false;
+    winnerDisplay.innerHTML = '';
 };
 
 const restartBtn = document.getElementById('restart');
