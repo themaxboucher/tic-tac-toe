@@ -77,6 +77,8 @@ const checkWin = () => {
 
 const computerMove = () => {
     turn++
+    player.disabled = true;
+    setting.disabled = true;
     const keys = Object.keys(gridState).filter(value => gridState[value] == null);
     const randomIndex = Math.floor(Math.random() * keys.length);
     const randomKey = keys[randomIndex];
@@ -144,6 +146,7 @@ const restart = () => {
     });
     turn = 0;
     player.disabled = false;
+    player.checked = false;
     setting.disabled = false;
 };
 
