@@ -49,12 +49,14 @@ const checkWin = () => {
         (gridState.one == gridState.four && 
         gridState.four == gridState.seven))) {
         endGame(true, 'one');
+        return true;
     } else if (gridState.nine != null && 
         ((gridState.nine == gridState.eight && 
         gridState.eight == gridState.seven) ||
         (gridState.nine == gridState.six && 
         gridState.six == gridState.three))) {
         endGame(true, 'nine');
+        return true;
     } else if (gridState.five != null && 
         ((gridState.five == gridState.one && 
         gridState.one == gridState.nine) ||
@@ -65,8 +67,12 @@ const checkWin = () => {
         (gridState.five == gridState.four && 
         gridState.four == gridState.six))) {
         endGame(true, 'five');
+        return true;
     } else if (Object.values(gridState).every(value => value != null)) {
         endGame(false);
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -108,9 +114,8 @@ const move = (square, num) => {
         text.innerHTML = 'O Turn';
     }
     checkWin();
-    //stop if win
 
-    if (computer) {
+    if (checkWin() == false && computer) {
         setTimeout(computerMove, 1000);
     }
     console.log(gridState);
