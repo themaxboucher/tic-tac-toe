@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5em;
+    font-family: sans-serif;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  width: 300px; /* Adjust the width as needed */
+}
+
+.grid-item {
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 35px;
+  cursor: pointer;
+}
