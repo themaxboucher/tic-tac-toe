@@ -26,7 +26,6 @@ const changeSetting = () => {
         text.innerHTML = 'Start game or select player';
         player.disabled = false;
     }
-    console.log(computer);
 };
 setting.addEventListener('change', changeSetting);
 
@@ -89,12 +88,10 @@ const computerMove = () => {
     if (turn % 2 === 0) {
         gridState[randomKey] = 'O';
         text.innerHTML = 'X Turn';
-        console.log(randomKey);
         square.innerHTML = 'O';
     } else {
         gridState[randomKey] = 'X';
         text.innerHTML = 'O Turn';
-        console.log(randomKey);
         square.innerHTML = 'X';
     }
     grid.forEach(square => {
@@ -129,7 +126,6 @@ const move = (square, num) => {
         });
         setTimeout(computerMove, 1000);
     }
-    console.log(gridState);
 };
 
 
