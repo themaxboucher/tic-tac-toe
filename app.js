@@ -30,7 +30,6 @@ const changeSetting = () => {
 };
 setting.addEventListener('change', changeSetting);
 
-
 let turn = 0;
 
 const endGame = (win, winner) => {
@@ -82,7 +81,6 @@ const computerMove = () => {
     const randomIndex = Math.floor(Math.random() * keys.length);
     const randomKey = keys[randomIndex];
     const square = document.getElementById(randomKey);
-    square.disabled = true;
     if (turn % 2 === 0) {
         gridState[randomKey] = 'O';
         text.innerHTML = 'X Turn';
@@ -94,6 +92,11 @@ const computerMove = () => {
         console.log(randomKey);
         square.innerHTML = 'X';
     }
+    grid.forEach(square => {
+        if (gridState[square.id] == null) {
+            square.disabled = false;
+        }
+    });
     checkWin();
 }
 
@@ -103,7 +106,6 @@ const move = (square, num) => {
     turn++
     player.disabled = true;
     setting.disabled = true;
-    square.disabled = true;
     if (turn % 2 === 0) {
         gridState[num] = 'O';
         square.innerHTML = 'O';
@@ -116,6 +118,9 @@ const move = (square, num) => {
     checkWin();
 
     if (checkWin() == false && computer) {
+        grid.forEach(item => {
+            item.disabled = true;
+        });
         setTimeout(computerMove, 1000);
     }
     console.log(gridState);
