@@ -82,17 +82,30 @@ const computerMove = () => {
     turn++
     player.disabled = true;
     setting.disabled = true;
-    const keys = Object.keys(gridState).filter(value => gridState[value] == null);
-    const randomIndex = Math.floor(Math.random() * keys.length);
-    const randomKey = keys[randomIndex];
-    const square = document.getElementById(randomKey);
+    const keysArray = Object.keys(gridState).filter(value => gridState[value] == null);
+    let index;
+    if (turn == 1) {
+        index = 4;
+    } else if (turn == 2) {
+        const turnTwoMoves = [1,1,1,3,3,6,7];
+        index = turnTwoMoves[Math.floor(Math.random() * 7)];
+    } else if (turn ==3) {
+        const turnThreeMoves = [1,1,1,3,3,6];
+        index = turnThreeMoves[Math.floor(Math.random() * 6)];
+    } else {
+        index = Math.floor(Math.random() * keysArray.length);
+    }
+    console.log(index);
+    const key = keysArray[index];
+    console.log(key);
+    const square = document.getElementById(key);
     square.disabled = true;
     if (turn % 2 === 0) {
-        gridState[randomKey] = 'O';
+        gridState[key] = 'O';
         text.innerHTML = 'X Turn';
         square.innerHTML = 'O';
     } else {
-        gridState[randomKey] = 'X';
+        gridState[key] = 'X';
         text.innerHTML = 'O Turn';
         square.innerHTML = 'X';
     }
