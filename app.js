@@ -1,20 +1,13 @@
+// Declare global variables
 const grid = document.querySelectorAll('.grid-item');
-const gridState = {
-    one: null,
-    two: null,
-    three: null,
-    four: null,
-    five: null,
-    six: null,
-    seven: null,
-    eight: null,
-    nine: null,
-};
+const gridState = {one: null, two: null, three: null, four: null, five: null, six: null, seven: null, eight: null, nine: null,};
 const text = document.getElementById('turn');
 const player = document.getElementById('player');
 const winnerDisplay = document.getElementById('winner');
 const restartBtn = document.getElementById('restart');
 const popup = document.getElementById('popup');
+//Set default turn to 0
+let turn = 0;
 
 // Toggle from 'VS Computer' to 'VS Friend'
 let computer = true;
@@ -22,7 +15,7 @@ const setting = document.getElementById('setting');
 const changeSetting = () => {
     if (setting.value == 'VS Friend') {
         computer = false;
-        text.innerHTML = "X's Turn";
+        text.innerHTML = "Start game";
         player.disabled = true;
     } else {
         computer = true;
@@ -32,8 +25,7 @@ const changeSetting = () => {
 };
 setting.addEventListener('change', changeSetting);
 
-let turn = 0;
-
+// What to do when the game ends...
 const endGame = (win, winner) => {
     text.innerHTML = 'Game Over';
     if (win) {
@@ -46,6 +38,7 @@ const endGame = (win, winner) => {
     });
 };
 
+// Check if the game has been won or if there is a draw by looking at the gridState object
 const checkWin = () => {
     if (gridState.one != null && 
         ((gridState.one == gridState.two && 
@@ -80,11 +73,26 @@ const checkWin = () => {
     }
 }
 
+// Mark the square that has been claimed in HTML and in the gridState object
+const claimSquare = (square, num) => {
+    if (turn % 2 === 0) {
+        gridState[num] = 'O';
+        square.innerHTML = 'O';
+        text.innerHTML = "X's Turn";
+    } else {
+        gridState[num] = 'X';
+        square.innerHTML = 'X';
+        text.innerHTML = "O's Turn";
+    }
+}
+
+// The computer makes a move...
 const computerMove = () => {
     turn++
     player.disabled = true;
     setting.disabled = true;
     restartBtn.disabled = false;
+    // Algorithm to determine which square to claim (i.e. what move to make)
     const keysArray = Object.keys(gridState).filter(value => gridState[value] == null);
     let index;
     if (turn == 1) {
@@ -99,19 +107,12 @@ const computerMove = () => {
         index = Math.floor(Math.random() * keysArray.length);
     }
     console.log(index);
-    const key = keysArray[index];
-    console.log(key);
-    const square = document.getElementById(key);
+    const num = keysArray[index];
+    console.log(num);
+    const square = document.getElementById(num);
     square.disabled = true;
-    if (turn % 2 === 0) {
-        gridState[key] = 'O';
-        text.innerHTML = "X's Turn";
-        square.innerHTML = 'O';
-    } else {
-        gridState[key] = 'X';
-        text.innerHTML = "O's Turn";
-        square.innerHTML = 'X';
-    }
+    claimSquare(square, num);
+    // Enable all empty squares (i.e. squares where the corresponding gridState key is set to null)
     grid.forEach(square => {
         if (gridState[square.id] == null) {
             square.disabled = false;
@@ -119,58 +120,54 @@ const computerMove = () => {
     });
     checkWin();
 }
-
+// Computer makes the first move if you change your player (X's or O's)
 player.addEventListener('change', computerMove);
 
 const move = (square, num) => {
     turn++
     player.disabled = true;
     setting.disabled = true;
-    square.disabled = true;
     restartBtn.disabled = false;
-    if (turn % 2 === 0) {
-        gridState[num] = 'O';
-        square.innerHTML = 'O';
-        text.innerHTML = "X's Turn";
-    } else {
-        gridState[num] = 'X';
-        square.innerHTML = 'X';
-        text.innerHTML = "O's Turn";
-    }
+    square.disabled = true;
+    claimSquare(square, num);
     checkWin();
-
+    // Stop if someone wins or there is a draw
     if (checkWin() == false && computer) {
+        // Prevent user from clicking on square while the computer makes a move
         grid.forEach(item => {
             item.disabled = true;
         });
+        // Wait half a second before the computer makes its move
         setTimeout(computerMove, 500);
     }
 };
 
-
+// Add click event listener to each square so that they are marked when clicked
 grid.forEach(item => {
     item.addEventListener('click', () => move(item, item.id));
 });
 
+// Reseting everything to restart the game...
 const restart = () => {
+    // Reset every value in the gridState object to null
     for (const key in gridState) {
         if (gridState.hasOwnProperty(key)) {
             gridState[key] = null;
         }
     }
+    // Reset the HTML of every square
     grid.forEach(item => {
         item.innerHTML = '';
         item.disabled = false;
     });
-    turn = 0;
     if (computer) {
         player.disabled = false;
     }
+    turn = 0;
     player.checked = false;
     text.innerHTML = "X's Turn";
     setting.disabled = false;
     winnerDisplay.innerHTML = '';
     restartBtn.disabled = true;
 };
-
 restartBtn.addEventListener('click', restart);
