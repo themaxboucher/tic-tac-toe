@@ -94,22 +94,34 @@ const computerMove = () => {
     setting.disabled = true;
     restartBtn.disabled = false;
     // Algorithm to determine which square to claim (i.e. what move to make)
-    const keysArray = Object.keys(gridState).filter(value => gridState[value] == null);
-    let index;
-    if (turn == 1) {
-        index = 4;
-    } else if (turn == 2) {
-        const turnTwoMoves = [1,1,1,3,3,6,7];
-        index = turnTwoMoves[Math.floor(Math.random() * 7)];
-    } else if (turn ==3) {
-        const turnThreeMoves = [1,1,1,3,3,6];
-        index = turnThreeMoves[Math.floor(Math.random() * 6)];
+    let num;
+    if (gridState.five == null) {
+        num = 'five';
+    } else if (((gridState.three == gridState.two && gridState.three != null) || (gridState.five == gridState.nine && gridState.five != null) || (gridState.four == gridState.seven && gridState.four != null)) && gridState.one == null) {
+        num = 'one'; 
+    } else if (((gridState.one == gridState.three && gridState.one != null) || (gridState.five == gridState.eight && gridState.five != null)) && gridState.two == null) {
+        num = 'two'; 
+    } else if (((gridState.one == gridState.two && gridState.one != null) || (gridState.five == gridState.seven && gridState.five != null) || (gridState.six == gridState.nine && gridState.six != null)) && gridState.three == null) {
+        num = 'three';
+    } else if (((gridState.one == gridState.seven && gridState.one != null) || (gridState.five == gridState.six && gridState.five != null)) && gridState.four == null) {
+        num = 'four'; 
+    } else if (((gridState.four == gridState.five && gridState.four != null) || (gridState.three == gridState.nine && gridState.three != null)) && gridState.six == null) {
+        num = 'six'; 
+    } else if (((gridState.three == gridState.five && gridState.three != null) || (gridState.one == gridState.four && gridState.one != null) || (gridState.eight == gridState.nine && gridState.eight != null)) && gridState.seven == null) {
+        num = 'seven'; 
+    } else if (((gridState.seven == gridState.nine && gridState.seven != null) || (gridState.five == gridState.two && gridState.five != null)) && gridState.eight == null) {
+        num = 'eight'; 
+    } else if (((gridState.seven == gridState.eight && gridState.seven != null) || (gridState.five == gridState.one && gridState.five != null) || (gridState.three == gridState.six && gridState.three != null)) && gridState.nine == null) {
+        num = 'nine'; 
+    } else if (turn <= 3 && (gridState.one != null || gridState.seven != null) && gridState.nine == null) {
+        num = 'nine';
+    } else if (turn <= 3 && (gridState.three != null || gridState.nine != null) && gridState.one == null) {
+        num = 'one'; 
     } else {
-        index = Math.floor(Math.random() * keysArray.length);
+        const keysArray = Object.keys(gridState).filter(value => gridState[value] == null);
+        const randomIndex = Math.floor(Math.random() * keysArray.length);
+        num = keysArray[randomIndex];
     }
-    console.log(index);
-    const num = keysArray[index];
-    console.log(num);
     const square = document.getElementById(num);
     square.disabled = true;
     claimSquare(square, num);
