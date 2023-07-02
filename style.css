@@ -78,12 +78,14 @@ div#select-player > button:disabled {
     grid-gap: 2px;
     background-color: black;
     margin: 20px;
+    border: none;
 }
 
 .grid-item {
     /* font-family: 'Varela Round', sans-serif; */
     background-color: white;
     border: none;
+    outline: none;
     text-align: center;
     height: 8rem;
     width: 8rem;
@@ -91,7 +93,14 @@ div#select-player > button:disabled {
     color: black;
     font-size: xx-large;
     font-weight: 600;
-    transition: 0.25s ease;
+}
+
+@media (max-width: 500px) {
+    .grid-item {
+        height: 5rem;
+        width: 5rem;
+        font-size: larger;
+    }
 }
 
 .grid-item:disabled {
