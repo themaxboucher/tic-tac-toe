@@ -13,6 +13,8 @@ const gridState = {
 const text = document.getElementById('turn');
 const player = document.getElementById('player');
 const winnerDisplay = document.getElementById('winner');
+const restartBtn = document.getElementById('restart');
+const popup = document.getElementById('popup');
 
 // Toggle from 'VS Computer' to 'VS Friend'
 let computer = true;
@@ -20,7 +22,7 @@ const setting = document.getElementById('setting');
 const changeSetting = () => {
     if (setting.value == 'VS Friend') {
         computer = false;
-        text.innerHTML = 'X Turn';
+        text.innerHTML = "X's Turn";
         player.disabled = true;
     } else {
         computer = true;
@@ -82,6 +84,7 @@ const computerMove = () => {
     turn++
     player.disabled = true;
     setting.disabled = true;
+    restartBtn.disabled = false;
     const keysArray = Object.keys(gridState).filter(value => gridState[value] == null);
     let index;
     if (turn == 1) {
@@ -102,11 +105,11 @@ const computerMove = () => {
     square.disabled = true;
     if (turn % 2 === 0) {
         gridState[key] = 'O';
-        text.innerHTML = 'X Turn';
+        text.innerHTML = "X's Turn";
         square.innerHTML = 'O';
     } else {
         gridState[key] = 'X';
-        text.innerHTML = 'O Turn';
+        text.innerHTML = "O's Turn";
         square.innerHTML = 'X';
     }
     grid.forEach(square => {
@@ -124,14 +127,15 @@ const move = (square, num) => {
     player.disabled = true;
     setting.disabled = true;
     square.disabled = true;
+    restartBtn.disabled = false;
     if (turn % 2 === 0) {
         gridState[num] = 'O';
         square.innerHTML = 'O';
-        text.innerHTML = 'X Turn';
+        text.innerHTML = "X's Turn";
     } else {
         gridState[num] = 'X';
         square.innerHTML = 'X';
-        text.innerHTML = 'O Turn';
+        text.innerHTML = "O's Turn";
     }
     checkWin();
 
@@ -139,7 +143,7 @@ const move = (square, num) => {
         grid.forEach(item => {
             item.disabled = true;
         });
-        setTimeout(computerMove, 1000);
+        setTimeout(computerMove, 500);
     }
 };
 
@@ -155,7 +159,7 @@ const restart = () => {
         }
     }
     grid.forEach(item => {
-        item.innerHTML = '-';
+        item.innerHTML = '';
         item.disabled = false;
     });
     turn = 0;
@@ -163,10 +167,10 @@ const restart = () => {
         player.disabled = false;
     }
     player.checked = false;
-    text.innerHTML = 'X Turn';
+    text.innerHTML = "X's Turn";
     setting.disabled = false;
     winnerDisplay.innerHTML = '';
+    restartBtn.disabled = true;
 };
 
-const restartBtn = document.getElementById('restart');
 restartBtn.addEventListener('click', restart);

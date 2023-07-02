@@ -9,27 +9,35 @@
   </head>
   <body>
     <main>
-        <select id="setting">
-            <option value="VS Computer">VS Computer</option>
-            <option value="VS Friend">VS Friend</option>
-        </select>
-        <input type="checkbox" id="player">
-        <h3 id="turn">Start game or select player</h3>
-        <div class="grid">
-            <button class="grid-item" id="one">-</button>
-            <button class="grid-item" id="two">-</button>
-            <button class="grid-item" id="three">-</button>
-            <button class="grid-item" id="four">-</button>
-            <button class="grid-item" id="five">-</button>
-            <button class="grid-item" id="six">-</button>
-            <button class="grid-item" id="seven">-</button>
-            <button class="grid-item" id="eight">-</button>
-            <button class="grid-item" id="nine">-</button>
-        </div>
-        <div>
+        <section id="controls">
+            <select id="setting">
+                <option value="VS Computer">VS Computer</option>
+                <option value="VS Friend">VS Friend</option>
+            </select>
+
+            <label class="checkbox">
+                <input type="checkbox" id="player"/>
+                <div class="checkmark"></div>
+            </label>
+
+        </section>
+        <section id="game">
+            <h3 id="turn">Start game or select player</h3>
+            <div class="grid">
+                <button class="grid-item" id="one"></button>
+                <button class="grid-item" id="two"></button>
+                <button class="grid-item" id="three"></button>
+                <button class="grid-item" id="four"></button>
+                <button class="grid-item" id="five"></button>
+                <button class="grid-item" id="six"></button>
+                <button class="grid-item" id="seven"></button>
+                <button class="grid-item" id="eight"></button>
+                <button class="grid-item" id="nine"></button>
+            </div>
             <h3 id="winner"></h3>
-            <button id="restart">Restart Game</button>
-        </div>
+            <button id="restart" disabled>Restart Game</button>
+        </section>
+
     </main>
 	<script src="app.js"></script>
   </body>
