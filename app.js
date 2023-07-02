@@ -2,10 +2,10 @@
 const grid = document.querySelectorAll('.grid-item');
 const gridState = {one: null, two: null, three: null, four: null, five: null, six: null, seven: null, eight: null, nine: null,};
 const text = document.getElementById('turn');
-const player = document.getElementById('player');
+const playerX = document.getElementById('player-x');
+const playerO = document.getElementById('player-o');
 const winnerDisplay = document.getElementById('winner');
 const restartBtn = document.getElementById('restart');
-const popup = document.getElementById('popup');
 //Set default turn to 0
 let turn = 0;
 
@@ -15,12 +15,12 @@ const setting = document.getElementById('setting');
 const changeSetting = () => {
     if (setting.value == 'VS Friend') {
         computer = false;
-        text.innerHTML = "Start game";
-        player.disabled = true;
+        text.innerHTML = "X's Turn";
+        playerO.disabled = true;
     } else {
         computer = true;
         text.innerHTML = 'Start game or select player';
-        player.disabled = false;
+        playerO.disabled = false;
     }
 };
 setting.addEventListener('change', changeSetting);
@@ -89,7 +89,8 @@ const claimSquare = (square, num) => {
 // The computer makes a move...
 const computerMove = () => {
     turn++
-    player.disabled = true;
+    playerX.disabled = true;
+    playerO.disabled = true;
     setting.disabled = true;
     restartBtn.disabled = false;
     // Algorithm to determine which square to claim (i.e. what move to make)
@@ -121,11 +122,13 @@ const computerMove = () => {
     checkWin();
 }
 // Computer makes the first move if you change your player (X's or O's)
-player.addEventListener('change', computerMove);
+playerO.addEventListener('click', computerMove);
+
 
 const move = (square, num) => {
     turn++
-    player.disabled = true;
+    playerX.disabled = true;
+    playerO.disabled = true;
     setting.disabled = true;
     restartBtn.disabled = false;
     square.disabled = true;
@@ -161,10 +164,10 @@ const restart = () => {
         item.disabled = false;
     });
     if (computer) {
-        player.disabled = false;
+        playerX.disabled = true;
+        playerO.disabled = false;
     }
     turn = 0;
-    player.checked = false;
     text.innerHTML = "X's Turn";
     setting.disabled = false;
     winnerDisplay.innerHTML = '';
