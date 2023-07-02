@@ -29,9 +29,9 @@ setting.addEventListener('change', changeSetting);
 const endGame = (win, winner) => {
     text.innerHTML = 'Game Over';
     if (win) {
-        winnerDisplay.innerHTML = `${gridState[winner]} wins!`;
+        winnerDisplay.innerHTML = `${gridState[winner]} wins!  🙌`;
     } else {
-        winnerDisplay.innerHTML = 'Draw';
+        winnerDisplay.innerHTML = 'Draw 🤝';
     }
     grid.forEach(item => {
         item.disabled = true;
